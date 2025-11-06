@@ -1,8 +1,11 @@
+//Giram O. ELias Nieves
+//801227631
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
 #include <algorithm>
 #include <iostream>
+#include <queue>
 #include <sstream>
 #include <stdexcept>
 using namespace std;
@@ -112,9 +115,39 @@ public:
   void remove(const Comparable &x) { remove(x, root); }
 
   string BFT() const {
-    string st;
+    if (root == nullptr)
+        return "[]";  // si el árbol está vacío
+
+    string st = "[";
+    queue<BinaryNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int levelSize = q.size();  // cuántos nodos hay en este nivel
+        st += "[";
+
+        for (int i = 0; i < levelSize; ++i) {
+            BinaryNode* node = q.front();
+            q.pop();
+
+            st += to_string(node->element); // añade el valor
+            if (i < levelSize - 1)
+                st += ","; // separa con coma
+
+            if (node->left)
+                q.push(node->left);
+            if (node->right)
+                q.push(node->right);
+        }
+
+        st += "]";
+        if (!q.empty())
+            st += ","; // separa niveles con coma
+    }
+
+    st += "]";
     return st;
-  }
+}
 
 private:
   struct BinaryNode {
