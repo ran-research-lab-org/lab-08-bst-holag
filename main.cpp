@@ -27,4 +27,28 @@ TEST_CASE("BinarySearchTree basic operations") {
   CHECK(C.toInorderStr() == "2,3,4,6,7,8,10,12,14,15,16,18,20,22,24,26,28,30");
   CHECK(C.BFT() ==
         "[[16],[8,24],[4,12,20,28],[2,6,10,14,18,22,26,30],[3,7,15]]");
+
+
+        //Contain Tests
+  CHECK(B.contains(10) == true);
+  CHECK(B.contains(1) == true);
+  CHECK(B.contains(999) == false);
+  CHECK(B.contains(3) == false);
+
+      //Remove Tests
+      //Remove leaf node (no children)
+  B.remove(1);
+  CHECK(B.toInorderStr() == "2,4,10,15,31,56");
+
+      //Remove node with one children
+  B.remove(31);
+  CHECK(B.toInorderStr() == "2,4,10,15,56");
+
+      //Remove node with two children
+  B.remove(10);
+  CHECK(B.toInorderStr() == "2,4,15,56");
+
+
+    
+
 }
